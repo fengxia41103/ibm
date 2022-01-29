@@ -1,0 +1,54 @@
+{
+  "root": true,
+  "plugins": ["import"],
+  "extends": ["react-app", "eslint:recommended", "plugin:import/recommended"],
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2020
+  },
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          ["index", "sibling"],
+          "object"
+        ],
+        "newlines-between": "always",
+        "pathGroups": [
+          {
+            "pattern": "@material/**",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": []
+      }
+    ],
+    "arrow-parens": ["warn", "always"]
+  },
+
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      },
+      "alias": {
+        "map": [["src", "./src"]],
+        "extensions": [".js", ".jsx"]
+      }
+    }
+  }
+}
