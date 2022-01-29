@@ -1,8 +1,8 @@
-import { Typography } from "@material-ui/core";
 import Stack from "@mui/material/Stack";
 import React, { useState, useEffect } from "react";
 
 import ShowResource from "src/components/common/ShowResource";
+import PersonNameButton from "src/components/person/PersonNameButton";
 
 export default function PersonListByColor(props) {
   // props
@@ -20,12 +20,11 @@ export default function PersonListByColor(props) {
   const render_data = (data) => {
     const { persons = [] } = data;
 
+    // no person is assigned to this color
     if (persons.length === 0) return "No person has this color";
 
     const names = persons.map((name) => (
-      <Typography key={name} variant="body1">
-        {name}
-      </Typography>
+      <PersonNameButton key={name} who={{ name: name }} />
     ));
 
     return (

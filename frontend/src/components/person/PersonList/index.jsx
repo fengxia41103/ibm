@@ -10,7 +10,7 @@ import { map, groupBy, isNull } from "lodash";
 import React, { useState } from "react";
 
 import ShowResource from "src/components/common/ShowResource";
-import NameButton from "src/components/person/NameButton";
+import PersonNameButton from "src/components/person/PersonNameButton";
 
 export default function PersonList() {
   // states
@@ -24,7 +24,9 @@ export default function PersonList() {
     );
 
     const groupCards = map(groupByGroup, (persons, group) => {
-      const names = map(persons, (p) => <NameButton key={p.name} who={p} />);
+      const names = map(persons, (p) => (
+        <PersonNameButton key={p.name} who={p} />
+      ));
 
       return (
         <Grid item key={group} lg={4} md={6} xs={12}>
