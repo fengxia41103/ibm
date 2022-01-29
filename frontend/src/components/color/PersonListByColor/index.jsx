@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 
 import ShowResource from "src/components/common/ShowResource";
 
-export default function PersonList(props) {
+export default function PersonListByColor(props) {
   // props
   const { color } = props;
 
@@ -19,6 +19,8 @@ export default function PersonList(props) {
   // renders
   const render_data = (data) => {
     const { persons = [] } = data;
+
+    if (persons.length === 0) return "No person has this color";
 
     const names = persons.map((name) => (
       <Typography key={name} variant="body1">
