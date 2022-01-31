@@ -5,7 +5,8 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3000",
+  // origin: "http://localhost:3000",
+  origin: "*",
 };
 
 app.use(cors(corsOptions));
@@ -42,7 +43,7 @@ require("./app/routes/group.routes")(app);
 require("./app/routes/color.routes")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
@@ -52,7 +53,7 @@ app.listen(PORT, () => {
 const initilize = async (file) => {
   const { group: Group, color: Color, user: User } = db;
 
-  const initData = require(`../data/${file}`);
+  const initData = require(`./data/${file}`);
   for (const group in initData) {
     // const inGroup = await Group.findOrCreate({ name: group });
     let inGroup = await Group.findOne({ name: group });
@@ -85,5 +86,7 @@ const initilize = async (file) => {
   }
 };
 const fs = require("fs");
-const files = fs.readdirSync("../data");
-files.map((f) => initilize(f));
+if (fs.existsSync("./data")) {
+  const files = fs.readdirSync("./data");
+  files.map((f) => initilize(f));
+}

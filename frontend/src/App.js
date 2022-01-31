@@ -12,13 +12,9 @@ import LoginView from "src/views/auth/LoginView";
 import RegistrationView from "src/views/auth/RegistrationView";
 
 const globals = {
-  backend: {
-    api: "http://localhost:8003/api/dao",
-    host: "http://localhost:8003"
-  },
   backend_node: {
-    api: "http://localhost:8080/api",
-    host: "http://localhost:8080/api"
+    api: "http://localhost:8111/api",
+    host: "http://localhost:8111/api"
   }
 };
 
