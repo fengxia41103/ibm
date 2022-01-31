@@ -1,5 +1,9 @@
-import { Box, Button, List, ListItem } from "@material-ui/core";
+import { Box, List, ListItem } from "@material-ui/core";
 import { Container } from "@material-ui/core";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 import Stack from "@mui/material/Stack";
 import React, { useState } from "react";
 
@@ -32,26 +36,36 @@ export default function TodayDashboardView() {
 
   // renders
   const render_data = data => {
-    const colors = data.map(color => (
-      <Button
-        key={color.id}
-        style={{ backgroundColor: color.name.toLowerCase() }}
-        onClick={() => setColor(color.name)}
-      >
-        {color.name}
-      </Button>
-    ));
+    const selectColor = (
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Select a color</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={color}
+          label="Select a color"
+          onChange={event => setColor(event.target.value)}
+        >
+          <MenuItem value="">---</MenuItem>
+          {data.map(color => (
+            <MenuItem key={color.id} value={color.name}>
+              {color.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    );
 
     return (
       <Page title="Today">
         <Container maxWidth={false}>
           <Stack direction="row" spacing={3}>
-            {colors}
+            {selectColor}
             <DropdownMenu content={menuContent} />
           </Stack>
-
-          <Box mt={3}>Set color: {color}</Box>
-          <PersonListByColor color={color} />
+          <Box mt={3}>
+            <PersonListByColor color={color} />
+          </Box>
         </Container>
       </Page>
     );

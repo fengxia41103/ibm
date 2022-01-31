@@ -6,7 +6,7 @@ import {
   Typography
 } from "@material-ui/core";
 import Stack from "@mui/material/Stack";
-import { map, groupBy, isNull } from "lodash";
+import { map, groupBy } from "lodash";
 import React, { useState, useEffect } from "react";
 
 import ShowResource from "src/components/common/ShowResource";
@@ -27,9 +27,10 @@ export default function PersonListByColor(props) {
   // renders
   const render_data = data => {
     const persons = data;
-    const groupByGroup = groupBy(persons, p =>
-      isNull(p.group) ? "None" : p.group[0].name
-    );
+
+    if (persons.length === 0) return "No person has this color!";
+
+    const groupByGroup = groupBy(persons, p => p.group[0].name);
 
     const groupCards = map(groupByGroup, (persons, group) => {
       const names = map(persons, p => (
@@ -40,7 +41,12 @@ export default function PersonListByColor(props) {
         <Grid item key={group} lg={4} md={6} xs={12}>
           <Card>
             <CardHeader
-              title={<Typography variant="h3">GROUP: {group}</Typography>}
+              title={
+                <Typography variant="h3" color="primary">
+                  {group || "Default"}
+                </Typography>
+              }
+              subheader={<Typography variant="body2">Group</Typography>}
             />
             <CardContent>
               <Stack direction="row" spacing={1}>
@@ -53,7 +59,7 @@ export default function PersonListByColor(props) {
     });
 
     return (
-      <Grid container spacing={3}>
+      <Grid container spacing={1}>
         {groupCards}
       </Grid>
     );
