@@ -54,6 +54,7 @@ services:
     networks:
       - data
       - management
+    command: node server
     depends_on:
       - mongo
 
