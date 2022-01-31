@@ -1,3 +1,5 @@
+const { env } = process;
+
 module.exports = {
-  url: "mongodb://fengxia:natalie@mongo:27017/ibm",
+  url: `mongodb://${env.APP_USERNAME}:${env.APP_PASSWORD}@mongo:27017/ibm`,
 };

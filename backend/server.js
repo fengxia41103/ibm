@@ -48,8 +48,7 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-// load initial if any
-
+// load initial data set if any
 const initilize = async (file) => {
   const { group: Group, color: Color, user: User } = db;
 
@@ -66,13 +65,14 @@ const initilize = async (file) => {
 
     for (const person in subdoc) {
       // create color
-      const color = subdoc[person];
+      const color = subdoc[person].toUpperCase();
       let inColor = await Color.findOne({ name: color });
       if (!inColor) {
         inColor = new Color({ name: color });
         await inColor.save();
       }
 
+      // create new user
       let newUser = await User.findOne({ name: person });
       if (!newUser) {
         newUser = new User({

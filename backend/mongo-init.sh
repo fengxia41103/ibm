@@ -1,3 +1,8 @@
+set -e
+
+mongo <<EOF
+use admin
+
 db = db.getSiblingDB("admin");
 
 // move to the admin db - always created in Mongo
@@ -7,9 +12,10 @@ db.auth("ibm", "dao");
 db = db.getSiblingDB("ibm");
 
 // create and move to your new database
+
 db.createUser({
-  user: "fengxia",
-  pwd: "natalie",
+  user: '$APP_USERNAME',
+  pwd: '$APP_PASSWORD',
   roles: [
     {
       role: "dbOwner",
@@ -22,3 +28,4 @@ db.createUser({
 db.createCollection("persons");
 db.createCollection("groups");
 db.createCollection("colors");
+EOF
