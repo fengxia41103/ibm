@@ -49,6 +49,7 @@ services:
       - ./backend:/code
       - ./backend/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./data:/code/data:ro
+      - /var/node_process/node_modules
     ports:
       - "8111:80"
     networks:
