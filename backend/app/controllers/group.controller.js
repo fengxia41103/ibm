@@ -11,7 +11,7 @@ exports.create = (req, res) => {
 
   // Create a Group
   const group = new Group({
-    name: req.body.name,
+    name: req.body.name || "Default",
   });
 
   // Save Group in the database
