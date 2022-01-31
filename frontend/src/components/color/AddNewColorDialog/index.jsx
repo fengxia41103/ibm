@@ -23,7 +23,7 @@ export default function AddNewColorDialog() {
 
   const { mutate: create } = useMutate({
     verb: "POST",
-    path: `${api}${resource}/`,
+    path: `${api}${resource}/`
   });
 
   // const reload = () => window.location.reload();
@@ -31,7 +31,7 @@ export default function AddNewColorDialog() {
 
   const handleClose = () => setOpen(false);
 
-  const on_color_change = (event) => {
+  const on_color_change = event => {
     // symbol is always in upper case
     let tmp = event.target.value;
     setColor(tmp.toUpperCase().trim());
@@ -44,15 +44,19 @@ export default function AddNewColorDialog() {
     // reload();
   };
 
-  const render_data = (data) => {
+  const render_data = data => {
     const colors = map(
-      filter(data.results, (s) => s.name.includes(color)),
-      (s) => <Chip key={s.id} color="primary" label={s.name} />
+      filter(data, s => s.name.includes(color)),
+      s => (
+        <Chip
+          key={s.id}
+          style={{ backgroundColor: s.name.toLowerCase() }}
+          label={s.name}
+        />
+      )
     );
 
-    const is_error = map(data.results, (s) => s.name.toUpperCase()).includes(
-      color
-    );
+    const is_error = map(data, s => s.name.toUpperCase()).includes(color);
 
     return (
       <>

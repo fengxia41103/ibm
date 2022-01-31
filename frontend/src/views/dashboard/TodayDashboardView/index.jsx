@@ -10,7 +10,6 @@ import Page from "src/components/common/Page";
 import ShowResource from "src/components/common/ShowResource";
 import AddNewGroupDialog from "src/components/group/AddNewGroupDialog";
 import AddNewPersonDialog from "src/components/person/AddNewPersonDialog";
-import PersonList from "src/components/person/PersonList";
 
 export default function TodayDashboardView() {
   // states
@@ -32,12 +31,12 @@ export default function TodayDashboardView() {
   );
 
   // renders
-  const render_data = (data) => {
-    const colors = data.results.map((color) => (
+  const render_data = data => {
+    const colors = data.map(color => (
       <Button
         key={color.id}
         style={{ backgroundColor: color.name.toLowerCase() }}
-        onClick={() => setColor(color)}
+        onClick={() => setColor(color.name)}
       >
         {color.name}
       </Button>
@@ -51,8 +50,8 @@ export default function TodayDashboardView() {
             <DropdownMenu content={menuContent} />
           </Stack>
 
-          <Box mt={3}>Set color: {color.name}</Box>
-          {color ? <PersonListByColor color={color.id} /> : <PersonList />}
+          <Box mt={3}>Set color: {color}</Box>
+          <PersonListByColor color={color} />
         </Container>
       </Page>
     );

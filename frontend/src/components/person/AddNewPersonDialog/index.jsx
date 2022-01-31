@@ -18,20 +18,19 @@ import GlobalContext from "src/context";
 export default function AddNewPersonDialog() {
   const { api } = useContext(GlobalContext);
   const [open, setOpen] = useState(false);
-  const [resource] = useState("/persons");
+  const [resource] = useState("/users");
   const [person, setPerson] = useState("");
 
   const { mutate: create } = useMutate({
     verb: "POST",
-    path: `${api}${resource}/`,
+    path: `${api}${resource}/`
   });
 
-  // const reload = () => window.location.reload();
   const handleClickOpen = () => setOpen(true);
 
   const handleClose = () => setOpen(false);
 
-  const on_person_change = (event) => {
+  const on_person_change = event => {
     // symbol is always in upper case
     let tmp = event.target.value;
     setPerson(tmp.toUpperCase().trim());
@@ -41,18 +40,15 @@ export default function AddNewPersonDialog() {
   const on_create = () => {
     create({ name: person });
     setOpen(false);
-    // reload();
   };
 
-  const render_data = (data) => {
+  const render_data = data => {
     const persons = map(
-      filter(data.results, (s) => s.name.includes(person)),
-      (s) => <Chip key={s.id} person="primary" label={s.name} />
+      filter(data, s => s.name.includes(person)),
+      s => <Chip key={s.id} person="primary" label={s.name} />
     );
 
-    const is_error = map(data.results, (s) => s.name.toUpperCase()).includes(
-      person
-    );
+    const is_error = map(data, s => s.name.toUpperCase()).includes(person);
 
     return (
       <>

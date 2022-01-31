@@ -14,13 +14,17 @@ import RegistrationView from "src/views/auth/RegistrationView";
 const globals = {
   backend: {
     api: "http://localhost:8003/api/dao",
-    host: "http://localhost:8003",
+    host: "http://localhost:8003"
   },
+  backend_node: {
+    api: "http://localhost:8080/api",
+    host: "http://localhost:8080/api"
+  }
 };
 
 export default function App() {
   // global config
-  const backend = globals.backend;
+  const backend = globals.backend_node;
 
   // check authentication
   const session = window.sessionStorage;
@@ -50,8 +54,8 @@ export default function App() {
         requestOptions={(url, method, requestBody) => ({
           headers: {
             "content-type": "application/json",
-            Authorization: auth,
-          },
+            Authorization: auth
+          }
         })}
       >
         <GlobalContext.Provider value={{ ...backend, user, auth }}>

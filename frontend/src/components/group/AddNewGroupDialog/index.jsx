@@ -23,15 +23,15 @@ export default function AddNewGroupDialog() {
 
   const { mutate: create } = useMutate({
     verb: "POST",
-    path: `${api}${resource}/`,
+    path: `${api}${resource}/`
   });
 
-  // const reload = () => window.location.reload();
+  const reload = () => window.location.reload();
   const handleClickOpen = () => setOpen(true);
 
   const handleClose = () => setOpen(false);
 
-  const on_group_change = (event) => {
+  const on_group_change = event => {
     // symbol is always in upper case
     let tmp = event.target.value;
     setGroup(tmp.toUpperCase().trim());
@@ -41,18 +41,16 @@ export default function AddNewGroupDialog() {
   const on_create = () => {
     create({ name: group });
     setOpen(false);
-    // reload();
+    reload();
   };
 
-  const render_data = (data) => {
+  const render_data = data => {
     const groups = map(
-      filter(data.results, (s) => s.name.includes(group)),
-      (s) => <Chip key={s.id} group="primary" label={s.name} />
+      filter(data, s => s.name.includes(group)),
+      s => <Chip key={s.id} group="primary" label={s.name} />
     );
 
-    const is_error = map(data.results, (s) => s.name.toUpperCase()).includes(
-      group
-    );
+    const is_error = map(data, s => s.name.toUpperCase()).includes(group);
 
     return (
       <>

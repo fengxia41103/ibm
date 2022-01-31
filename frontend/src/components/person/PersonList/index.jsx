@@ -3,7 +3,7 @@ import {
   Card,
   CardHeader,
   CardContent,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import Stack from "@mui/material/Stack";
 import { map, groupBy, isNull } from "lodash";
@@ -14,17 +14,19 @@ import PersonNameButton from "src/components/person/PersonNameButton";
 
 export default function PersonList() {
   // states
-  const [resource] = useState("/persons");
+  const [resource] = useState("/users");
 
   // renders
-  const render_data = (data) => {
-    const persons = data.results;
-    const groupByGroup = groupBy(persons, (p) =>
-      isNull(p.group) ? "None" : p.group.name
+  const render_data = data => {
+    const persons = data;
+    const groupByGroup = groupBy(persons, p =>
+      isNull(p.group) ? "None" : p.group[0]
     );
 
     const groupCards = map(groupByGroup, (persons, group) => {
-      const names = map(persons, (p) => (
+      const groupName = group;
+
+      const names = map(persons, p => (
         <PersonNameButton key={p.name} who={p} />
       ));
 
@@ -32,7 +34,7 @@ export default function PersonList() {
         <Grid item key={group} lg={4} md={6} xs={12}>
           <Card>
             <CardHeader
-              title={<Typography variant="h3">GROUP: {group}</Typography>}
+              title={<Typography variant="h3">GROUP: {groupName}</Typography>}
             />
             <CardContent>
               <Stack direction="row" spacing={1}>

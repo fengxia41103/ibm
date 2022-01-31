@@ -10,7 +10,7 @@ export default function PersonNameButton(props) {
   return (
     <Button
       variant="outlined"
-      style={color ? { color: color.name.toLowerCase() } : null}
+      style={color ? { color: color[0].name.toLowerCase() } : null}
     >
       {name}
     </Button>
@@ -21,7 +21,7 @@ PersonNameButton.propTypes = {
   who: PropTypes.shape({
     name: PropTypes.string.isRequired,
     color: PropTypes.shape({
-      name: PropTypes.string,
-    }),
-  }).isRequired,
+      name: PropTypes.string
+    })
+  }).isRequired
 };

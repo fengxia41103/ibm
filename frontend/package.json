@@ -51,7 +51,7 @@
     "moment-timezone": "^0.5.33",
     "npm": "^7.24.0",
     "nprogress": "^0.2.0",
-    "prop-types": "^15.7.2",
+    "prop-types": "^15.8.1",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.10.0",
     "react-debounce-input": "^3.2.3",
