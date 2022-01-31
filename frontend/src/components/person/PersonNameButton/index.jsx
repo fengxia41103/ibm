@@ -20,8 +20,10 @@ export default function PersonNameButton(props) {
 PersonNameButton.propTypes = {
   who: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    color: PropTypes.shape({
-      name: PropTypes.string
-    })
+    color: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string
+      })
+    )
   }).isRequired
 };

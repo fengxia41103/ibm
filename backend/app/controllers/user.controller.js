@@ -1,17 +1,33 @@
 const db = require("../models");
 const User = db.user;
+const Group = db.group;
+const Color = db.color;
 
 // Create and Save a new User
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   // Validate request
   if (!req.body.name) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
 
+  // Get or create color
+  let color = await Color.findOne({ name: req.body.color });
+  if (!color) {
+    color = new Color({ name: req.body.color });
+    await color.save();
+  }
+  let group = await Group.findOne({ name: req.body.group });
+  if (!group) {
+    group = new Group({ name: req.body.group });
+    await group.save();
+  }
+
   // Create a User
   const user = new User({
     name: req.body.name,
+    color: color._id,
+    group: group._id,
   });
 
   // Save User in the database

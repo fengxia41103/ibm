@@ -15,7 +15,6 @@ import PersonNameButton from "src/components/person/PersonNameButton";
 export default function PersonListByColor(props) {
   // props
   const { color } = props;
-  console.log(color);
 
   // states
   const [resource, setResource] = useState("");
@@ -28,14 +27,11 @@ export default function PersonListByColor(props) {
   // renders
   const render_data = data => {
     const persons = data;
-    console.log(persons);
     const groupByGroup = groupBy(persons, p =>
       isNull(p.group) ? "None" : p.group[0].name
     );
 
     const groupCards = map(groupByGroup, (persons, group) => {
-      console.log(group);
-
       const names = map(persons, p => (
         <PersonNameButton key={p.name} who={p} />
       ));
