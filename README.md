@@ -98,3 +98,9 @@ environment:
 4. When adding a user, change the user name input to the color if the
    person exists.
 5. No auth in backend. API is public.
+
+# Credits
+
+1. Backend is based on [example project on
+   github](https://github.com/bezkoder/node-express-mongodb)
+2. Frontend is based on [my stock analysis project](https://github.com/fengxia41103/stock)
