@@ -6,14 +6,8 @@ networks:
   data:
   management:
 
-# storage
-volumes:
-  stock-data:
-  redis-data:
-
 # computes
 services:
-
   mongo:
     image: mongo
     restart: always
@@ -36,6 +30,8 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: ibm
       ME_CONFIG_MONGODB_ADMINPASSWORD: dao
       ME_CONFIG_MONGODB_URL: mongodb://ibm:dao@mongo:27017/
+    depends_on:
+      - mongo
     networks:
       - data
       - management
@@ -55,7 +51,6 @@ services:
       - ./data:/code/data:ro
     ports:
       - "8111:80"
-    command: node server
     networks:
       - data
       - management
@@ -73,5 +68,7 @@ services:
     ports:
       - "8112:80"
     command: [nginx-debug, "-g", "daemon off;"]
+    depends_on:
+      - backend
     networks:
       - management
