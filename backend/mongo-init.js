@@ -22,5 +22,3 @@ db.createUser({
 db.createCollection("persons");
 db.createCollection("groups");
 db.createCollection("colors");
-
-// add new collection

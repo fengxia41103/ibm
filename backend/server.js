@@ -46,3 +46,44 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
+// load initial if any
+
+const initilize = async (file) => {
+  const { group: Group, color: Color, user: User } = db;
+
+  const initData = require(`../data/${file}`);
+  for (const group in initData) {
+    // const inGroup = await Group.findOrCreate({ name: group });
+    let inGroup = await Group.findOne({ name: group });
+    if (!inGroup) {
+      inGroup = new Group({ name: group });
+      await inGroup.save();
+    }
+
+    const subdoc = initData[group];
+
+    for (const person in subdoc) {
+      // create color
+      const color = subdoc[person];
+      let inColor = await Color.findOne({ name: color });
+      if (!inColor) {
+        inColor = new Color({ name: color });
+        await inColor.save();
+      }
+
+      let newUser = await User.findOne({ name: person });
+      if (!newUser) {
+        newUser = new User({
+          name: person,
+          color: inColor._id,
+          group: inGroup._id,
+        });
+        await newUser.save();
+      }
+    }
+  }
+};
+const fs = require("fs");
+const files = fs.readdirSync("../data");
+files.map((f) => initilize(f));

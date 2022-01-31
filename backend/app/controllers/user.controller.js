@@ -1,7 +1,5 @@
 const db = require("../models");
-const User = db.user;
-const Group = db.group;
-const Color = db.color;
+const { group: Group, color: Color, user: User } = db;
 
 // Create and Save a new User
 exports.create = async (req, res) => {
