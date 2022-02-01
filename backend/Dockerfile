@@ -16,4 +16,4 @@ RUN yarn upgrade
 COPY . /code
 
 # Start the app
-CMD node server
+CMD yarn run start

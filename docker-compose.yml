@@ -41,21 +41,17 @@ services:
     build:
       context: ./backend
       dockerfile: ./Dockerfile
-    restart: always
     environment:
       APP_USERNAME: fengxia
       APP_PASSWORD: natalie
+      NODE_PATH: /code/node_modules
     volumes:
-      - ./backend:/code
-      - ./backend/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./data:/code/data:ro
-      - /var/node_process/node_modules
     ports:
       - "8111:80"
     networks:
       - data
       - management
-    command: node server
     depends_on:
       - mongo
 
@@ -65,7 +61,6 @@ services:
       context: ./frontend
       dockerfile: ./Dockerfile
     volumes:
-      - ./frontend:/code
       - ./frontend/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
       - "8112:80"
